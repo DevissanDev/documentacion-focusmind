@@ -1,43 +1,81 @@
-# Documentacion del proyecto
+# FocusMind — Documentación del Proyecto
 
-Proposito
-- Documentar el frontend med-web de forma clara y operativa.
-- Explicar la estructura, el flujo de datos y las reglas de arquitectura.
+FocusMind es una aplicación web de bienestar y productividad que integra gestión de tareas, registro emocional, calendario visual y analíticas cognitivas, con autenticación segura mediante AWS Cognito.
 
-Resumen ejecutivo
-- Stack: React + Vite + Tailwind + AWS Amplify (Cognito).
-- Navegacion: React Router.
-- API: llamadas via `fetch` con token `access_token`.
-- Deploy: variables de entorno definidas en el proveedor (Vercel).
+## Stack tecnológico
 
-Instalacion y uso
-1) Instalar dependencias: `npm install`
-2) Desarrollo local: `npm run dev`
+| Categoría | Tecnología |
+|-----------|-----------|
+| Framework | React 19 + Vite 7 |
+| Enrutamiento | React Router DOM 7 |
+| Autenticación | AWS Amplify 6 + Cognito |
+| Estilos | Tailwind CSS 4 |
+| UI Libraries | PrimeReact 10, Material-UI 9 |
+| Gráficos | @mui/x-charts 9 |
+| Íconos | lucide-react, primeicons |
+| HTTP | Fetch API (wrapper propio) |
+| Deploy | Vercel (SPA routing) |
 
+## Estructura de carpetas
 
-Variables de entorno
-- `VITE_API_URL`: base URL del backend. Ej: https://med-core.onrender.com
-- `VITE_AWS_USER_POOL_ID`: Cognito User Pool ID.
-- `VITE_AWS_USER_POOL_CLIENT_ID`: Cognito App Client ID.
+```
+src/
+├── components/        # Componentes globales (Auth, Profile)
+├── features/          # Módulos por dominio (calendar, task, etc.)
+│   ├── calendar/
+│   ├── dashboard/
+│   ├── registroEmocional/
+│   └── task/
+├── pages/             # Páginas que ensamblan features
+├── services/          # Cliente HTTP centralizado
+├── hooks/             # Hooks globales
+└── utils/             # Utilidades
+```
 
-Nota de deploy
-- En Vercel, configurar las mismas variables en Project Settings.
-- Si falta `VITE_API_URL`, el frontend genera URLs `undefined/...`.
+## Rutas de la aplicación
 
-Estructura (alto nivel)
-- `src/`: codigo fuente.
-- `src/pages/`: paginas (rutas).
-- `src/features/`: features con UI, hooks y servicios.
-- `src/services/`: servicios comunes (api, helpers).
-- `src/components/`: UI compartida.
-- `src/hooks/`: hooks reutilizables.
-- `src/assets/`: imagenes e iconos locales.
+| Ruta | Página | Auth requerida |
+|------|--------|----------------|
+| `/login` | Login | No |
+| `/register` | Registro | No |
+| `/dashboard` | Dashboard | Sí |
+| `/tareas` | Gestión de tareas | Sí |
+| `/registro-emocional` | Registro emocional | Sí |
+| `/calendario` | Calendario | Sí |
+| `/user` | Seguridad y perfil | Sí |
 
-Guia rapida de arquitectura
-- Las paginas orquestan el flujo y componen componentes.
-- Los hooks encapsulan estado, carga y errores.
-- La logica de API vive en `services`.
+## Variables de entorno
 
-Indice de documentos
-- Ver estructura y responsabilidades en `estructura.md`.
-- Ver descripcion detallada de archivos en `archivos-clave.md`.
+```env
+VITE_API_URL=http://localhost:3000
+VITE_AWS_REGION=us-east-1
+VITE_AWS_USER_POOL_ID=us-east-1_xxxxxxxxx
+VITE_AWS_USER_POOL_CLIENT_ID=xxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+
+## Scripts
+
+```bash
+npm run dev       # Servidor de desarrollo
+npm run build     # Build de producción
+npm run preview   # Preview del build
+npm run lint      # Linting con ESLint
+```
+
+## Índice de documentación
+
+### Features
+- [Autenticación](features/auth.md)
+- [Dashboard](features/dashboard.md)
+- [Tareas](features/task.md)
+- [Registro Emocional](features/registro-emocional.md)
+- [Calendario](features/calendar.md)
+
+### Componentes
+- [Componentes de Autenticación](components/auth-components.md)
+- [Componentes de Perfil](components/profile-components.md)
+- [Componentes de Calendario](components/calendar-components.md)
+- [Componentes de Tareas](components/task-components.md)
+
+### Servicios
+- [API Client](components/api-client.md)
